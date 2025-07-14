@@ -6,7 +6,7 @@ import path from "path";
 import fs from "fs";
 
 
-import { add, div, mult, sub } from "../src/lib/math";
+import { add, div, mult, sub } from "./lib/math"
 
 const [ input1, input2 ] = process.argv.slice(2);
 

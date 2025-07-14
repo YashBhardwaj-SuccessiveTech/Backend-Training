@@ -3,7 +3,7 @@
 //  The structure of your project would look something like this:
 import path from "path";
 import fs from "fs";
-import { add, div, mult, sub } from "../src/lib/math";
+import { add, div, mult, sub } from "../lib/math.js";
 const [input1, input2] = process.argv.slice(2);
 const n1 = parseInt(input1);
 const n2 = parseInt(input2);
