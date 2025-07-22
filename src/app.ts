@@ -13,5 +13,5 @@ app.get("/users",(req, res)=>{
 });
 
 app.listen(port, ()=>{
-    console.log("Assignment-2 listening");
+    console.log(`server is listening at port ${port}`);
 });
