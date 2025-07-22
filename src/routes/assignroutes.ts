@@ -20,6 +20,11 @@ import { middleware1, middleware2, middleware3 } from "../middlewares/middchaini
 import { errMiddleWare} from "../middlewares/errhandling.js";
 import { addcustomHeader } from "../middlewares/customheader.js";
 import { limiter } from "../middlewares/ratemiddleware.js";
+import { validationmidd } from "../middlewares/validateuser.js";
+import { validateform } from "../middlewares/validateform.js";
+import { validateNumericQuery } from "../middlewares/queryparam.js";
+import { geolocmidd } from "../middlewares/validatelocation.js";
+import dynamicvalidate from "../middlewares/dynamicfetch.js";
 
 
 // api routes
@@ -61,6 +66,29 @@ router.get("/custom",addcustomHeader("customHeader","Yash"), (req,res)=>{
 router.get("/ratelimited", limiter, (req, res) => {
   res.status(200).json({ message: "You are within the rate limit." });
 });
+
+// Assignment-4 Routes Begin
+
+router.get("/validation",validationmidd,(req, res)=>{
+  res.status(201).send("Successfully validate");
+});
+
+router.get("/validateform", validateform,(req, res)=>{
+  res.status(201).send("Form Successfully Validated");
+});
+
+router.get("/validateparams/:id",validateNumericQuery,(req: Request, res: Response)=>{
+  res.status(201).send("Numeric validation of Query Done");
+});
+
+router.get("/validatelocation",geolocmidd,(req,res)=>{
+  res.send("Location validated successfully");
+});
+
+router.get("/dynamicfetch",dynamicvalidate,(req:Request, res: Response)=>{
+  res.send("dynamically fetched the validation Rules");
+});
+
 
 export default router;
 
