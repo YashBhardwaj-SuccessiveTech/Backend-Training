@@ -18,6 +18,7 @@ app.get("/dashboard", (req,res)=>{
         res.status(400).json({ 
             message: "invalid header"
         })
+        return;
     }
 
     const token = header.split(' ')[1];

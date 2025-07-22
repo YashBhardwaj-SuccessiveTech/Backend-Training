@@ -10,7 +10,8 @@ export const limiter = rateLimit({
     status: 429,
     message: "Too many requests, please try again later.",
   },
-  standardHeaders: true, 
+  standardHeaders: true,  
   legacyHeaders: false,  
 });
 
+ 

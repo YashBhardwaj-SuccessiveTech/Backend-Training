@@ -1,7 +1,17 @@
+import { Request, Response, NextFunction } from "express";
 import { faker } from "@faker-js/faker";
 
-export default function mockApi(count) {
-  return (req, res, next) => {
+
+interface CustomRequest extends Request {
+  users?: Array<{
+    id: string;
+    name: string;
+    email: string;
+  }>;
+}
+
+export default function mockApi(count: number) {
+  return (req: CustomRequest, res: Response, next:NextFunction) => {
     try {
       const user = [];
       for (let i = 0; i < count; i++) {
