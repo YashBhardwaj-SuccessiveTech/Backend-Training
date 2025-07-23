@@ -4,12 +4,17 @@
 
 import { Request, Response, NextFunction } from "express"
 import { userSchema } from "../utils/Users"
+import { commoninterface } from "../Interfaces/userInterface";
 
-export const validationmidd = (req: Request, res: Response, next: NextFunction)=>{
-    const {error, value} = userSchema.validate(req.body,{abortEarly:false});
-    if(error){
-        console.log(error);
-        return res.send(error.details);
+class ValidationMidd{
+    public validationmidd: commoninterface = (req: Request, res: Response, next: NextFunction)=>{
+        const {error, value} = userSchema.validate(req.body,{abortEarly:false});
+        if(error){
+            console.log(error);
+            return res.send(error.details);
+        }
+        next();
     }
-    next();
 }
+
+export default ValidationMidd;

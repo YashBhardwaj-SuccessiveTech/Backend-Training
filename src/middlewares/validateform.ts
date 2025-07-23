@@ -2,6 +2,7 @@
 // Check if the required fields are present and if they meet certain criteria (e.g., password strength, email format).
 import { Request, Response, NextFunction } from "express"
 import Joi from "joi"
+import { commoninterface } from "../Interfaces/userInterface";
 
 const formSchema = Joi.object({
     username: Joi.string().alphanum().min(3).max(10).required(),
@@ -11,12 +12,15 @@ const formSchema = Joi.object({
     
 })
 
-
-export const validateform = (req:Request, res:Response, next: NextFunction)=>{
-    const {error, value} = formSchema.validate(req.body, {abortEarly: false});
-    if(error){
-        console.log(error);
-        return res.send(error.details);
+class Formvalidate{
+    public validateform: commoninterface = (req:Request, res:Response, next: NextFunction)=>{
+        const {error, value} = formSchema.validate(req.body, {abortEarly: false});
+        if(error){
+            console.log(error);
+            return res.send(error.details);
+        }
+        next();
     }
-    next();
 }
+
+export default Formvalidate;

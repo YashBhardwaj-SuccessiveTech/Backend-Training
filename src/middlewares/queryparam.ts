@@ -3,17 +3,21 @@
 
 import { Request, Response, NextFunction } from "express";
 import Joi from "joi";
+import { commoninterface } from "../Interfaces/userInterface";
 
 const querySchema = Joi.number().required();
 
-export const validateNumericQuery = (req: Request, res: Response, next: NextFunction) => {
-  const { error } = querySchema.validate(req.params.id);
+class ValidateQuery{
+  public validateNumericQuery: commoninterface = (req: Request, res: Response, next: NextFunction) => {
+    const { error } = querySchema.validate(req.params.id);
 
-  if (error) {
-    console.log(error);
-    return res.send(error.details);
-  }
+    if (error) {
+      console.log(error);
+      return res.send(error.details);
+    }
 
-  next();
-};
+    next();
+  };
+}
 
+export default ValidateQuery;

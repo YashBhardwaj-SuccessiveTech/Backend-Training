@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import { faker } from "@faker-js/faker";
+import { commoninterface } from "../Interfaces/userInterface";
 
 
 interface CustomRequest extends Request {
@@ -10,23 +11,27 @@ interface CustomRequest extends Request {
   }>;
 }
 
-export default function mockApi(count: number) {
-  return (req: CustomRequest, res: Response, next:NextFunction) => {
-    try {
-      const user = [];
-      for (let i = 0; i < count; i++) {
-        user.push({
-          id: faker.string.uuid(),
-          name: faker.person.fullName(),
-          email: faker.internet.email(),
-        });
+class mockApii{
+  public mockApi(count: number): commoninterface {
+    return (req: CustomRequest, res: Response, next:NextFunction) => {
+      try {
+        const user = [];
+        for (let i = 0; i < count; i++) {
+          user.push({
+            id: faker.string.uuid(),
+            name: faker.person.fullName(),
+            email: faker.internet.email(),
+          });
+        }
+
+        req.users = user;
+
+        next();
+      } catch (err) {
+        console.log(err);
       }
-
-      req.users = user;
-
-      next();
-    } catch (err) {
-      console.log(err);
-    }
-  };
+    };
+  }
 }
+
+export default mockApii;

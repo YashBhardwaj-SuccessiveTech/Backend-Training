@@ -3,20 +3,25 @@
 
 import { Request, Response, NextFunction } from "express";
 import createError from "http-errors";
+import { commoninterface } from "../Interfaces/userInterface";
 
-export const validationcheck = (req: Request, res: Response, next: NextFunction)=>{
-    const {username, email , password} = req.body;
+class ValidationCheck{
+    public validationcheck: commoninterface = (req: Request, res: Response, next: NextFunction)=>{
+        const {username, email , password} = req.body;
 
-    if(!username || typeof username !== "string"){
-        return next(createError(422, "username is required and must be string"));
+        if(!username || typeof username !== "string"){
+            return next(createError(422, "username is required and must be string"));
+        }
+
+        if(!password || password.length<6){
+            return next(createError(422, "Invalid password"));
+        }
+
+        if(!email || !email.includes("@")){
+            return next(createError(422, "A valid email is required"));
+        }
+        next();
     }
-
-    if(!password || password.length<6){
-        return next(createError(422, "Invalid password"));
-    }
-
-    if(!email || !email.includes("@")){
-        return next(createError(422, "A valid email is required"));
-    }
-    next();
 }
+
+export default ValidationCheck;

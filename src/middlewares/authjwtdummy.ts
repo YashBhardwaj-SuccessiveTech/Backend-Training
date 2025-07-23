@@ -19,11 +19,13 @@ const products: Products[] = [
   { id: 2, name: "phone", price: 2600 },
 ];
 
-export default function login(req: Request, res: Response, next: NextFunction) {
-  let token = jwt.sign({ data: products }, secretkey);
-  console.log(token);
-  // res.status(201).json({token});
-  next();
+class Login{
+  public login(req: Request, res: Response, next: NextFunction) {
+    let token = jwt.sign({ data: products }, secretkey);
+    console.log(token);
+    // res.status(201).json({token});
+    next();
+  }
 }
 
-
+export default Login;

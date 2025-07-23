@@ -2,10 +2,15 @@
 //  Allow the header value to be configurable.
 
 import { Request, Response, NextFunction } from "express";
+import { commoninterface } from "../Interfaces/userInterface";
 
-export function addcustomHeader(headername: string, headervalue: string){
-    return(req: Request,res: Response,next: NextFunction)=>{
-        res.setHeader(headername, headervalue);
-        next();
+class AddCustomHeader{
+    public addcustomHeader(headername: string, headervalue: string):commoninterface{
+        return(req: Request,res: Response,next: NextFunction)=>{
+            res.setHeader(headername, headervalue);
+            next();
+        }
     }
 }
+
+export default AddCustomHeader;

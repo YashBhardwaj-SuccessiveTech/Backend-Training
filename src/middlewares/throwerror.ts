@@ -1,5 +1,10 @@
 import { Request, Response, NextFunction } from "express";
+import { commoninterface } from "../Interfaces/userInterface";
 
-export const throwerror = (req: Request, res: Response, next: NextFunction)=>{
-    next(new Error("something went wrong"));
+class ThrowError{
+    public throwerror: commoninterface = (req: Request, res: Response, next: NextFunction)=>{
+        next(new Error("something went wrong"));
+    }
 }
+
+export default ThrowError;
