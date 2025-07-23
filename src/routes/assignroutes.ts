@@ -1,4 +1,4 @@
-import express from "express";
+import express, { NextFunction } from "express";
 import { Request,Response } from "express";
 const router = express.Router();
 
@@ -25,6 +25,9 @@ import { validateform } from "../middlewares/validateform.js";
 import { validateNumericQuery } from "../middlewares/queryparam.js";
 import { geolocmidd } from "../middlewares/validatelocation.js";
 import dynamicvalidate from "../middlewares/dynamicfetch.js";
+import { errorhandling } from "../middlewares/errrorhandling.js";
+import { throwerror } from "../middlewares/throwerror.js";
+import { validationcheck } from "../middlewares/validationcheck.js";
 
 
 // api routes
@@ -88,6 +91,36 @@ router.get("/validatelocation",geolocmidd,(req,res)=>{
 router.get("/dynamicfetch",dynamicvalidate,(req:Request, res: Response)=>{
   res.send("dynamically fetched the validation Rules");
 });
+
+// Assignment-5 Routes Begin
+
+router.get("/errorhandling",throwerror,(req, res)=>{
+  res.send("error Handling done");
+});
+
+
+router.get("/errdemo", async (req: Request, res: Response, next:NextFunction) => {
+  try {
+    await new Promise((_,reject)=>{
+      setTimeout(()=>{
+     reject(new Error("Intentional async error"));
+      }, 500)
+    })
+  } catch (error) {
+    console.log(error);
+    next(error);
+  }
+});
+
+router.get("/validationcheck",validationcheck, (req: Request, res: Response)=>{
+  res.status(200).json({
+    success: true,
+    message: "user registered Successfully"
+  })
+})
+
+
+router.use(errorhandling);
 
 
 export default router;
