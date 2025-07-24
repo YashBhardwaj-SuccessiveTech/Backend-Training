@@ -30,6 +30,7 @@ import Login from "../middlewares/authjwtdummy.js";
 import validationn from "../middlewares/validation.js";
 import DynamicValidate from "../middlewares/dynamicfetch.js";
 import HealthCheck from "../controllers/healthcheck.js";
+import { seedCountries } from "../scripts/seed.js";
 
 
 // Making Classes
