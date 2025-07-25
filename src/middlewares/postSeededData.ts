@@ -13,22 +13,27 @@ interface CustomRequest extends Request {
 class generateMock{
   public generatemockData(): commoninterface {
     return (req:CustomRequest, res:Response, next:NextFunction) => {
-      let count = parseInt(req.body.count);
+      try{
+        let count = parseInt(req.body.count);
 
-      if (!count) {
-        res.status(401).json({ message: "Invalid Request" });
-      }
+        if (!count || isNaN(count) || count<0) {
+          return res.status(400).json({ message: "Invalid Count" });
+        }
 
-      const user = [];
-      for (let i = 0; i < count; i++) {
-        user.push({
-          id: faker.string.uuid(),
-          name: faker.person.fullName(),
-          email: faker.internet.email(),
-        });
+        const user = [];
+        for (let i = 0; i < count; i++) {
+          user.push({
+            id: faker.string.uuid(),
+            name: faker.person.fullName(),
+            email: faker.internet.email(),
+          });
+        }
+        req.users = user;
+        next();
+      }catch(err){
+        console.error(err);
+        next(err);
       }
-      req.users = user;
-      next();
     };
   }
 }

@@ -1,5 +1,3 @@
-import connectDB from "../config/db";
-import mongoose from "mongoose";
 import Country from "../models/Country";
 
 const countries = [
@@ -15,16 +13,18 @@ const countries = [
 
 export const seedCountries = async () => {
   try {
-    await connectDB();
+    const count = await Country.countDocuments();
+    if (count > 0) {
+      console.log("Countries already seeded, skipping...");
+      return;
+    }
     await Country.deleteMany({});
     await Country.insertMany(countries);
     console.log("Countries seeded successfully!");
-    mongoose.disconnect();
   } catch (error) {
     console.error("Error seeding countries:", error);
-    mongoose.disconnect();
+    // mongoose.disconnect();
   }
 };
 
-seedCountries();
 

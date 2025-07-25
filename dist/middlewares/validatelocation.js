@@ -5,26 +5,31 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.validatelocation = void 0;
 const geoip_lite_1 = __importDefault(require("geoip-lite"));
-const request_ip_1 = __importDefault(require("request-ip"));
 const allowedCountries = ["IN"];
-const validatelocation = (req, res, next) => {
-    const ip = request_ip_1.default.getClientIp(req);
-    const geo = geoip_lite_1.default.lookup(ip || "0.0.0.0");
-    console.log(geo);
-    if (!geo) {
-        return res
-            .status(403)
-            .json({ error: "Could not determine your location." });
+class Geolocation {
+    constructor() {
+        this.geolocmidd = (req, res, next) => {
+            var _a;
+            // Get ip
+            const ip = ((_a = req.headers["x-forwarded-for"]) === null || _a === void 0 ? void 0 : _a.split(",")[0]) ||
+                req.socket.remoteAddress ||
+                "";
+            console.log(ip);
+            if (ip === "::1") {
+                console.log(`Access granted`);
+                return next();
+            }
+            const geo = geoip_lite_1.default.lookup(ip);
+            if (!geo || !allowedCountries.includes(geo.country)) {
+                return res.status(403).json({
+                    message: "Access denied. Your region is not allowed.",
+                    success: false,
+                });
+            }
+            console.log(`Access granted from ${geo.country}`);
+            next();
+        };
     }
-    // If user's country is not in the allowed list
-    if (!allowedCountries.includes(geo.country || "")) {
-        return res
-            .status(403)
-            .json({ error: `Access denied from region: ${geo.country}` });
-    }
-    // Location is allowed, proceed to the next middleware or route
-    next();
-};
-exports.validatelocation = validatelocation;
+}
+exports.default = Geolocation;

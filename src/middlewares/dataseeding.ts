@@ -28,7 +28,8 @@ class mockApii{
 
         next();
       } catch (err) {
-        console.log(err);
+        console.error(err);
+        next(err);
       }
     };
   }

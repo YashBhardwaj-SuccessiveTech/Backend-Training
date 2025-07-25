@@ -12,28 +12,26 @@ interface CustomRequest extends Request {
 
 
 // import controllers and middlewares
-import Middlechain from "../middlewares/middchaining.js";
-import Errmiddware from "../middlewares/errhandling.js";
-import AddCustomHeader from "../middlewares/customheader.js";
-import Ratelimit from "../middlewares/ratemiddleware.js";
-import ValidationMidd from "../middlewares/validateuser.js";
-import Formvalidate from "../middlewares/validateform.js";
-import ValidateQuery from "../middlewares/queryparam.js";
-import Geolocation from "../middlewares/validatelocation.js";
-import ErrorHandling from "../middlewares/errrorhandling.js";
-import ThrowError from "../middlewares/throwerror.js";
-import ValidationCheck from "../middlewares/validationcheck.js";
-import mockApii from "../middlewares/dataseeding.js";
-import generateMock from "../middlewares/postSeededData.js";
-import customlog from "../middlewares/customware.js";
-import Login from "../middlewares/authjwtdummy.js";
-import validationn from "../middlewares/validation.js";
-import DynamicValidate from "../middlewares/dynamicfetch.js";
-import HealthCheck from "../controllers/healthcheck.js";
-import { seedCountries } from "../scripts/seed.js";
+import Middlechain from "../middlewares/middchaining";
+import Errmiddware from "../middlewares/errhandling";
+import AddCustomHeader from "../middlewares/customheader";
+import Ratelimit from "../middlewares/ratemiddleware";
+import ValidationMidd from "../middlewares/validateuser";
+import Formvalidate from "../middlewares/validateform";
+import ValidateQuery from "../middlewares/queryparam";
+import Geolocation from "../middlewares/validatelocation";
+import ErrorHandling from "../middlewares/errrorhandling";
+import ThrowError from "../middlewares/throwerror";
+import ValidationCheck from "../middlewares/validationcheck";
+import mockApii from "../middlewares/dataseeding";
+import generateMock from "../middlewares/postSeededData";
+import customlog from "../middlewares/customware";
+import Login from "../middlewares/authjwtdummy";
+import validationn from "../middlewares/validation";
+import DynamicValidate from "../middlewares/dynamicfetch";
 
 
-// Making Classes
+// Making Objects of Classes
 
 const custlog = new customlog();
 const mockdata = new mockApii();
@@ -52,8 +50,6 @@ const dynamicvalid = new DynamicValidate();
 const throwerr = new ThrowError();
 const ValidCheck = new ValidationCheck();
 const errorHandle = new ErrorHandling();
-const healthcheck = new HealthCheck();
-
 
 
 // api routes
@@ -118,6 +114,10 @@ router.get("/dynamicfetch",dynamicvalid.dynamicvalidate,(req:Request, res: Respo
   res.send("dynamically fetched the validation Rules");
 });
 
+router.post("/register",dynamicvalid.dynamicvalidate,(req:Request, res: Response)=>{
+  res.send("dynamically fetched the validation Rules");
+});
+
 // Assignment-5 Routes Begin
 
 router.get("/errorhandling",throwerr.throwerror,(req, res)=>{
@@ -144,10 +144,6 @@ router.get("/validationcheck",ValidCheck.validationcheck, (req: Request, res: Re
     message: "user registered Successfully"
   })
 });
-
-router.get("/health",healthcheck.checkServerHealth);
-
-
 
 router.use(errorHandle.errorhandling);
 

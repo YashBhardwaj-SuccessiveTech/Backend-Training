@@ -5,15 +5,18 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.validateNumericQuery = void 0;
 const joi_1 = __importDefault(require("joi"));
 const querySchema = joi_1.default.number().required();
-const validateNumericQuery = (req, res, next) => {
-    const { error } = querySchema.validate(req.params.id);
-    if (error) {
-        console.log(error);
-        return res.send(error.details);
+class ValidateQuery {
+    constructor() {
+        this.validateNumericQuery = (req, res, next) => {
+            const { error } = querySchema.validate(req.params.id);
+            if (error) {
+                console.log(error);
+                return res.send(error.details);
+            }
+            next();
+        };
     }
-    next();
-};
-exports.validateNumericQuery = validateNumericQuery;
+}
+exports.default = ValidateQuery;

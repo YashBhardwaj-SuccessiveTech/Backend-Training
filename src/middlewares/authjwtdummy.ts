@@ -1,8 +1,8 @@
 // Develop an authentication middleware using a JWT dummy token.
 
 import jwt from "jsonwebtoken";
-import dotenv from "dotenv";
 import { Request, Response, NextFunction } from "express";
+import { config } from "../config/configuration";
 
 interface Products{
   id:number,
@@ -10,9 +10,7 @@ interface Products{
   price:number
 }
 
-dotenv.config();
-
-const secretkey = process.env.SECRET_KEY as string;
+const secretkey = config.SECRET_KEY;
 
 const products: Products[] = [
   { id: 1, name: "tablet", price: 2500 },
@@ -21,10 +19,15 @@ const products: Products[] = [
 
 class Login{
   public login(req: Request, res: Response, next: NextFunction) {
-    let token = jwt.sign({ data: products }, secretkey);
-    console.log(token);
-    // res.status(201).json({token});
-    next();
+    try{
+      let token = jwt.sign({ data: products }, secretkey);
+      console.log(token);
+      res.status(201).json({token});
+      next();
+    }catch(err){
+      console.log(err);
+      res.json(err);
+    }
   }
 }
 
