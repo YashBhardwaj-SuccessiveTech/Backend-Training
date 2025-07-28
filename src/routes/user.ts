@@ -28,7 +28,7 @@ userRouter.get("/student", authobj.auth, authobj.isStudent, (req, res)=>{
 userRouter.get("/admin", authobj.auth, authobj.isAdmin, (req, res)=>{
     res.json({
         success:true,
-        message:"Welcome to protected Student page"
+        message:"Welcome to protected Admin page"
     })
 });
 
