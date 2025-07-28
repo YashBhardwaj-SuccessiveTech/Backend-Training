@@ -6,6 +6,7 @@ import HealthCheck from "./controllers/healthcheck";
 import { seedCountries } from "./scripts/seed";
 import connectDB from "./config/db";
 import errRoutes from "./routes/errorroutes";
+import userRouter from "./routes/user";
 
 const healthcheck = new HealthCheck();
 
@@ -25,6 +26,7 @@ app.get("/users",(req, res)=>{
 app.get("/health-check",healthcheck.checkServerHealth);
 
 app.use(router);
+app.use("/api/user",userRouter);
 
 app.use(errRoutes);
 
