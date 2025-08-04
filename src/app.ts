@@ -8,6 +8,7 @@ import connectDB from "./config/db";
 import errRoutes from "./routes/errorroutes";
 import userRouter from "./routes/user";
 import cookieparser from "cookie-parser";
+import { HeaderSecurity } from "./middlewares/securityHeader";
 
 const healthcheck = new HealthCheck();
 
@@ -16,6 +17,7 @@ const port = process.env.PORT || 3000;
 
 app.use(bodyParser.json());
 app.use(cookieparser());
+app.use(HeaderSecurity.HelmetSecurity);
 
 app.get("/",(req,res)=>{
     res.send("Home Page");
