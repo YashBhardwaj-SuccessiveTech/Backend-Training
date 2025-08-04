@@ -7,6 +7,7 @@ import { seedCountries } from "./scripts/seed";
 import connectDB from "./config/db";
 import errRoutes from "./routes/errorroutes";
 import userRouter from "./routes/user";
+import cookieparser from "cookie-parser";
 
 const healthcheck = new HealthCheck();
 
@@ -14,10 +15,11 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 app.use(bodyParser.json());
+app.use(cookieparser());
 
 app.get("/",(req,res)=>{
     res.send("Home Page");
-})
+});
 
 app.get("/users",(req, res)=>{
     res.json(dummyData);

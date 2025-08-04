@@ -14,16 +14,23 @@ interface AuthenticatedRequest extends Request {
 }
 
 class authentication{
-    public  auth = (req:AuthenticatedRequest , res: Response, next: NextFunction)=>{
+    public  authenticate = (req:AuthenticatedRequest , res: Response, next: NextFunction)=>{
         try{
             // extract jwt token
-            const token = req.body.token || req.cookies.token || req.header("Authorization")?.replace("Bearer ","");
+            const authHeader = req.headers.authorization;
+            if (!authHeader || !authHeader.startsWith("Bearer ")) {
+                return res.status(401).json({
+                    success: false,
+                    message: "Token missing or invalid format"
+                });
+            }
 
+            const token = authHeader.split(" ")[1];
             if(!token){
                 return res.status(201).json({
                     success: false,
                     message:"Token missing"
-                });  
+                });   
             }
 
             // verify the token

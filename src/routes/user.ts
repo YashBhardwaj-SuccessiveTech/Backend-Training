@@ -2,14 +2,16 @@ import express from "express";
 const userRouter = express.Router();
 
 // Controllers import 
-import createEntry from "../controllers/auth";
-import authentication from "../middlewares/Auth"
+import registration from "../controllers/signup";
+import authentication from "../middlewares/authenticatemiddleware"
+import Login from "../controllers/loginController";
 
-const authobj = new authentication();
-const create = new createEntry();
+const checkauthentication = new authentication();
+const register = new registration();
+const login = new Login();
 
 // route for testing
-userRouter.get("/test", authobj.auth, (req,res)=>{
+userRouter.get("/test", checkauthentication.authenticate, (req,res)=>{
     res.json({
         success:true,
         message:"welcome to protected test page"
@@ -18,30 +20,22 @@ userRouter.get("/test", authobj.auth, (req,res)=>{
 
 
 // Atuthentication Routes
-userRouter.get("/student", authobj.auth, authobj.isStudent, (req, res)=>{
+userRouter.get("/student", checkauthentication.authenticate, checkauthentication.isStudent, (req, res)=>{
     res.json({
         success:true,
         message:"Welcome to protected Student page"
-    })
+    });
 });
 
-userRouter.get("/admin", authobj.auth, authobj.isAdmin, (req, res)=>{
+userRouter.get("/admin", checkauthentication.authenticate, checkauthentication.isAdmin, (req, res)=>{
     res.json({
         success:true,
         message:"Welcome to protected Admin page"
     })
 });
 
-// routes
-userRouter.get("/",(req,res)=>{
-    res.status(200).send({
-        status:true,
-        message:"server working fine",
-    })
-});
-
-userRouter.post("/login", create.login);
-userRouter.post("/register", create.signup);
+userRouter.post("/login", login.login);
+userRouter.post("/register", register.signup);
 
 export default userRouter;
  
