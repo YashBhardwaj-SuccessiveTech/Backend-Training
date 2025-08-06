@@ -36,6 +36,4 @@ export class HeaderSecurity {
     return middlewareHelment(req,res,next);
   };
 
-
-
 }
