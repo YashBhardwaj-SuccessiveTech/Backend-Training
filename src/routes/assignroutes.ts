@@ -54,12 +54,12 @@ const errorHandle = new ErrorHandling();
 
 // api routes
 
-router.get("/reqdetails",custlog.customLogger,(req,res)=>{
-    res.status(201).send("logged details successfully");
+router.get("/reqdetails",custlog.customLogger,(req:Request,res:Response)=>{
+    res.status(200).send("logged details successfully");
 });
 
 router.get("/dataseeding",mockdata.mockApi(20), (req: CustomRequest,res: Response)=>{
-    res.status(201).json(req.users);
+    res.status(200).json(req.users);
 });
 
 router.post("/postdataseeding",generatedata.generatemockData(), (req: CustomRequest,res: Response)=>{
@@ -67,11 +67,11 @@ router.post("/postdataseeding",generatedata.generatemockData(), (req: CustomRequ
 });
 
 router.get("/login",loginn.login,(req,res)=>{
-    res.status(201).json("token generated successfully");
+    res.status(200).json("token generated successfully");
 });
 
 router.get("/validate",validate.validation,(req,res)=>{
-    res.status(201).json("validation successful");
+    res.status(200).json("validation successful");
 });
 
 router.get("/error", (req: Request, res: Response) => {
@@ -81,7 +81,7 @@ router.get("/error", (req: Request, res: Response) => {
 router.use(globalerrmidd.errMiddleWare);
 
 router.get("/chaining",midchain.middleware1, midchain.middleware2, midchain.middleware3,(req: Request,res: Response)=>{
-    res.status(201).json("Middleware Chaining Done");
+    res.status(200).json("Middleware Chaining Done");
 });
 
 router.get("/custom",addcusHeader.addcustomHeader("customHeader","Yash"), (req,res)=>{
@@ -95,15 +95,15 @@ router.get("/ratelimited", ratelimiter.limiter, (req, res) => {
 // Assignment-4 Routes Begin
 
 router.get("/validation",validMidd.validationmidd,(req, res)=>{
-  res.status(201).send("Successfully validate");
+  res.status(200).send("Successfully validate");
 });
 
 router.get("/validateform", formvalidate.validateform,(req, res)=>{
-  res.status(201).send("Form Successfully Validated");
+  res.status(200).send("Form Successfully Validated");
 });
 
 router.get("/validateparams/:id",validateQuery.validateNumericQuery,(req: Request, res: Response)=>{
-  res.status(201).send("Numeric validation of Query Done");
+  res.status(200).send("Numeric validation of Query Done");
 });
 
 router.get("/validatelocation",geoloc.geolocmidd,(req,res)=>{
@@ -120,7 +120,7 @@ router.post("/register",dynamicvalid.dynamicvalidate,(req:Request, res: Response
 
 // Assignment-5 Routes Begin
 
-router.get("/errorhandling",throwerr.throwerror,(req, res)=>{
+router.get("/errorhandling",throwerr.throwerror,(req:Request, res:Response)=>{
   res.send("error Handling done");
 });
 

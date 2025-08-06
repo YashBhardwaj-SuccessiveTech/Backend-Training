@@ -1,9 +1,6 @@
 import { Request, Response} from "express";
 import User from "../models/User"
 import bcrypt from "bcrypt"
-import jwt from "jsonwebtoken"
-require("dotenv").config();
-
 class registration{
     public signup = async (req: Request, res:Response)=>{
         // Fetch details

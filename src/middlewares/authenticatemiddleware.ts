@@ -1,7 +1,7 @@
 // auth , isStudent, isAdmin
 import jwt from "jsonwebtoken";
 import { Request,Response, NextFunction } from "express";
-require("dotenv").config();
+import { config } from "../config/configuration";
 
 interface UserPayload {
   id: string;
@@ -35,7 +35,7 @@ class authentication{
 
             // verify the token
             try{
-                const payload = jwt.verify(token, process.env.SECRET_KEY as string);
+                const payload = jwt.verify(token, config.SECRET_KEY as string);
                 console.log(payload);
                 req.user = payload as UserPayload;
             }

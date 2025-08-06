@@ -17,7 +17,6 @@ class validationn{
             const data = jwt.verify(token, secret_key);
             console.log(data);
             next();
-            // res.status(200).json({data});
         }catch(err){
             console.log(err);
             res.json(err);

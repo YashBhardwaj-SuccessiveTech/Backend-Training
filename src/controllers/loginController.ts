@@ -2,7 +2,7 @@ import { Request, Response} from "express";
 import User from "../models/User"
 import bcrypt from "bcrypt"
 import jwt from "jsonwebtoken"
-require("dotenv").config();
+import { config } from "../config/configuration";
 
 class Login{
     public login = async (req: Request, res:Response)=>{
@@ -35,7 +35,7 @@ class Login{
             // verify password and generate a JWT token
             if(await bcrypt.compare(password, existuser.password)){
                 // password match
-                let token = jwt.sign(payload, process.env.SECRET_KEY as string, {expiresIn: "2h"});
+                let token = jwt.sign(payload, config.SECRET_KEY as string, {expiresIn: "2h"});
                 const user = await User.findById(existuser._id).select("-password");
                 existuser.password = "";
                 console.log(existuser);

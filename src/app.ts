@@ -8,6 +8,8 @@ import connectDB from "./config/db";
 import errRoutes from "./routes/errorroutes";
 import userRouter from "./routes/user";
 import cookieparser from "cookie-parser";
+import { Request,Response } from "express";
+
 import { HeaderSecurity } from "./middlewares/securityHeader";
 
 const healthcheck = new HealthCheck();
@@ -19,11 +21,11 @@ app.use(bodyParser.json());
 app.use(cookieparser());
 app.use(HeaderSecurity.HelmetSecurity);
 
-app.get("/",(req,res)=>{
+app.get("/",(req:Request,res:Response)=>{
     res.send("Home Page");
 });
 
-app.get("/users",(req, res)=>{
+app.get("/users",(req:Request, res:Response)=>{
     res.json(dummyData);
 });
 
@@ -34,7 +36,7 @@ app.use("/api/user",userRouter);
 
 app.use(errRoutes);
 
-app.use((req,res)=>{
+app.use((req:Request,res:Response)=>{
     res.status(404)
     res.send("Route Not found")
 });

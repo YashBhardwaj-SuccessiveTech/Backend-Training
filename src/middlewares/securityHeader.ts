@@ -4,7 +4,6 @@ import helmet from "helmet";
 export class HeaderSecurity {
   public static HelmetSecurity = (req: Request, res: Response, next: NextFunction) => {
     const middlewareHelment= helmet({
-      // xssFilter is deprecated and no longer used in helmet v5+
       noSniff: true, // stop from guessing file type
 
       contentSecurityPolicy: {

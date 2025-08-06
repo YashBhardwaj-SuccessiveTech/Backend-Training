@@ -10,14 +10,6 @@ const checkauthentication = new authentication();
 const register = new registration();
 const login = new Login();
 
-// route for testing
-userRouter.get("/test", checkauthentication.authenticate, (req,res)=>{
-    res.json({
-        success:true,
-        message:"welcome to protected test page"
-    });
-});
-
 
 // Atuthentication Routes
 userRouter.get("/student", checkauthentication.authenticate, checkauthentication.isStudent, (req, res)=>{
