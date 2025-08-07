@@ -11,6 +11,7 @@ import cookieparser from "cookie-parser";
 import { Request,Response } from "express";
 
 import { HeaderSecurity } from "./middlewares/securityHeader";
+import { seedOrders } from "./scripts/seedaggregate";
 
 const healthcheck = new HealthCheck();
 
@@ -47,6 +48,8 @@ const startServer = async () => {
     await connectDB();
 
     await seedCountries();
+
+    await seedOrders();
 
     console.log("Server is starting...");
 
