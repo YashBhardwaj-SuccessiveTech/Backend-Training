@@ -1,4 +1,4 @@
-import Order from "../models/Orders.js";
+import Order from "../models/Orders";
 
 const runAggregations = async () => {
 
@@ -93,7 +93,7 @@ const runAggregations = async () => {
   ]);
   console.log("\n Product-wise Quantity & Revenue :", productStats);
 
-  process.exit();
+  process.exit(0);
 };
 
 runAggregations();

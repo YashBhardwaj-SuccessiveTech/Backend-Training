@@ -14,10 +14,10 @@ Each stage transforms the documents as they pass through the pipeline. Common st
 
 Filters the documents to pass only the documents that match the specified condition(s).
 
-```js
+```ts
 {
   $match: {
-    status: "Delivered";
+    status: "Delivered"
   }
 }
 ```
@@ -26,7 +26,7 @@ Filters the documents to pass only the documents that match the specified condit
 
 Groups input documents by a specified identifier expression and applies the accumulator expressions (like $sum, $avg, etc.)
 
-```js
+```ts
 {
   $group: {
     _id: "$customerName",
@@ -39,10 +39,10 @@ Groups input documents by a specified identifier expression and applies the accu
 
 Used to include, exclude, or add new fields.
 
-```js
+```ts
 {
   $project: {
-    productName: "$items.productName";
+    productName: "$items.productName"
   }
 }
 ```
@@ -51,10 +51,10 @@ Used to include, exclude, or add new fields.
 
 Sorts all input documents and returns them to the pipeline in sorted order.
 
-```js
+```ts
 {
   $sort: {
-    totalAmount: -1;
+    totalAmount: -1
   }
 }
 ```
@@ -63,9 +63,9 @@ Sorts all input documents and returns them to the pipeline in sorted order.
 
 Limits the number of documents passed to the next stage.
 
-```js
+```ts
 {
-  $limit: 5;
+  $limit: 5
 }
 ```
 
@@ -73,7 +73,7 @@ Limits the number of documents passed to the next stage.
 
 Deconstructs an array field from the input documents to output a document for each element.
 
-```js
+```ts
 {
   $unwind: "$items";
 }
